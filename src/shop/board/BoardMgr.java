@@ -93,13 +93,53 @@ public class BoardMgr {
 				BoardDto dto=new BoardDto();
 				dto.setNum(rs.getInt("num"));
 				dto.setName(rs.getString("name"));
-				dto.setName(rs.getString("title"));
-				dto.setName(rs.getString("bdata"));
-				dto.setName(rs.getString("readcnt"));
-				dto.setName(rs.getString("nested"));
+				dto.setTitle(rs.getString("title"));
+				dto.setBdate(rs.getString("bdate"));
+				dto.setReadcnt(rs.getInt("readcnt"));
+				dto.setNested(rs.getInt("nested"));
 				list.add(dto);
+
+			}
+			
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return list;
+	}
+	
+	public ArrayList<BoardDto> getDataAll(String stype,String sword){
+		ArrayList<BoardDto> list=new ArrayList<>();
+		String sql="select * from board";
+		try {
+			con=ds.getConnection();
+			if(sword==null){
+				sql+=" order by gnum desc,onum asc";
+				pst=con.prepareStatement(sql);
+			}else{
+				sql+=" where "+stype+" like ?";
+				sql+=" order by gnum desc, onum asc";
 				
-				
+				pst=con.prepareStatement(sql);
+				pst.setString(1, "%"+sword+"%");
+			}
+			rs=pst.executeQuery();
+			while(rs.next()){
+				BoardDto dto=new BoardDto();
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setTitle(rs.getString("title"));
+				dto.setBdate(rs.getString("bdate"));
+				dto.setReadcnt(rs.getInt("readcnt"));
+				dto.setNested(rs.getInt("nested"));
+				list.add(dto);
+
 			}
 			
 		} catch (Exception e) {
