@@ -3,7 +3,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int spage=1;%>
+<% 
+int spage=1;
+int pageSu=1;
+%>
 <jsp:useBean id="boardMgr" class="shop.board.BoardMgr"/>
 <jsp:useBean id="dto" class="shop.board.BoardDto"/>
 <!DOCTYPE html>
@@ -51,7 +54,12 @@ try{
 if(spage<=0) spage=1;
 String stype=request.getParameter("stype");
 String sword=request.getParameter("sword");
-ArrayList<BoardDto> list=boardMgr.getDataAll(stype,sword);
+
+boardMgr.totalList();
+pageSu=boardMgr.getPageSu(); //전체 페이지 수 얻기
+
+
+ArrayList<BoardDto> list=boardMgr.getDataAll(spage,stype,sword);
 for(int i=0;i<list.size();i++){
 	dto=(BoardDto)list.get(i);
 %>
@@ -75,7 +83,18 @@ for(int i=0;i<list.size();i++){
 <table style="width:100%">
 	<tr>
 		<td style="text-align:center;">
-		페이지 번호
+		<!-- 페이지 번호 -->
+		<%
+		for(int i=1; i<=pageSu;i++){
+			if(i==spage){
+				out.print("<b style='font-size:14pt;color:red;'>["+i+"]</b>");
+			}else{
+				out.print("<a href='boardlist.jsp?page="+i+"'>["+i+"]</a>");
+			}
+			
+		}
+		%>
+		
 		<br><br>
 		<form action="boardlist.jsp" name="frm" method="post">
 			<select name="stype">

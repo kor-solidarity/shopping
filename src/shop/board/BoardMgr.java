@@ -53,6 +53,10 @@ public class BoardMgr {
 		return cnt;
 	}
 	public void saveData(BoardBean bean){
+
+		
+		
+		
 		String sql="insert into board values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			con=ds.getConnection();
@@ -82,6 +86,35 @@ public class BoardMgr {
 			}
 		}
 	}
+
+
+	public void totalList(){ //전체 레코드 건수
+		String sql="select count(*) from board";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			rs=pst.executeQuery();
+			rs.next();
+			tot=rs.getInt(1);
+			
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+	}
+	
+	public int getPageSu(){ //총페이지 수 구하기
+		pageSu=tot/pList;
+		if(tot%pList>0)pageSu++;	//자투리 페이지 처리
+		return pageSu;
+	}
+	
 	public ArrayList<BoardDto> getDataAll(){
 		ArrayList<BoardDto> list=new ArrayList<>();
 		String sql="select * from board order by gnum desc, onum asc";
@@ -114,7 +147,7 @@ public class BoardMgr {
 		return list;
 	}
 	
-	public ArrayList<BoardDto> getDataAll(String stype,String sword){
+	public ArrayList<BoardDto> getDataAll(int page,String stype,String sword){
 		ArrayList<BoardDto> list=new ArrayList<>();
 		String sql="select * from board";
 		try {
@@ -130,7 +163,11 @@ public class BoardMgr {
 				pst.setString(1, "%"+sword+"%");
 			}
 			rs=pst.executeQuery();
-			while(rs.next()){
+			for(int i=0;i<(page-1)*pList;i++){
+				rs.next();
+			}
+			int k=0;
+			while(rs.next()&&k<pList){
 				BoardDto dto=new BoardDto();
 				dto.setNum(rs.getInt("num"));
 				dto.setName(rs.getString("name"));
@@ -139,7 +176,7 @@ public class BoardMgr {
 				dto.setReadcnt(rs.getInt("readcnt"));
 				dto.setNested(rs.getInt("nested"));
 				list.add(dto);
-
+				k++;
 			}
 			
 		} catch (Exception e) {
