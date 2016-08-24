@@ -8,6 +8,6 @@
 </head>
 <body>
 home<p/>
-<a href="board/boardList.jsp">게시판</a>
+<a href="board/boardlist.jsp">게시판</a>
 </body>
 </html>

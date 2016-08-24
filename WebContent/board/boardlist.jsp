@@ -11,9 +11,9 @@
 <tr>
 <td>
 	[<a href="../index.jsp">메인으로</a>]&nbsp;
-	[<a href="../boardlist.jsp?page=1">최신목록</a>]&nbsp;
-	[<a href="../boardWrite.jsp">새글작성</a>]&nbsp;
-	[<a href="#" onclick="window.open('admin.jsp','width=300,height=150,top=200,left=300')">관리자용</a>]&nbsp;
+	[<a href="boardlist.jsp?page=1">최신목록</a>]&nbsp;
+	[<a href="boardwrite.jsp">새글작성</a>]&nbsp;
+	[<a href="#" onclick="window.open('admin.jsp','','width=300,height=150,top=200,left=300')">관리자용</a>]&nbsp;
 </td>
 </tr>
 </table>

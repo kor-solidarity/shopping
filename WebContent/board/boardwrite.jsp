@@ -1,24 +1,24 @@
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=utf-8"%>
 <html>
 <head>
-<title>°Ô½ÃÆÇ</title>
-<link rel="stylesheet" type="text/css" href="../style/board.css">
+<title>ê²Œì‹œíŒ</title>
+<link rel="stylesheet" type="text/css" href="../css/board.css">
 <script>
 function check(){
 	if(frm.name.value==""){
-		alert("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
+		alert("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”");
 		frm.name.focus();
 	}else if(frm.pass.value ==""){
-		alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
 		frm.pass.focus();
 	}else if(frm.mail.value ==""){
-		alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä");
+		alert("ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”");
 		frm.mail.focus();
 	}else if(frm.title.value ==""){
-		alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä");
+		alert("ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”");
 		frm.title.focus();
 	}else if(frm.cont.value ==""){
-		alert("³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä");
+		alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”");
 		frm.cont.focus();
 	}else
 		frm.submit();
@@ -26,35 +26,35 @@ function check(){
 </script>
 </head>
 <body topmargin="50" leftmargin="50">
-<h2>*** ±Û¾²±â ***</h2>
+<h2 class="title">*** ê¸€ì“°ê¸° ***</h2>
 <form name="frm" method="post" action="boardsave.jsp">
 	<table border="1" width="530">
 		<tr>
-			<td align="center" width="100">ÀÌ ¸§</td>
+			<td align="center" width="100">ì´ ë¦„</td>
 			<td width="430"><input name="name" size="15"></td>
 		</tr>
 		<tr>
-			<td align="center">¾Ï È£</td>
+			<td align="center">ì•” í˜¸</td>
 			<td><input type="password" name="pass" size="15"></td>
 		</tr>
 		<tr>
-			<td align="center">¸Ş ÀÏ</td>
+			<td align="center">ë©” ì¼</td>
 			<td><input name="mail" size="25"></td>
 		</tr>
 		<tr>
-			<td align="center">Á¦ ¸ñ</td>
+			<td align="center">ì œ ëª©</td>
 			<td><input name="title" size="50"></td>
 		</tr>
 		<tr>
-			<td align="center">³» ¿ë</td>
+			<td align="center">ë‚´ ìš©</td>
 			<td><textarea name="cont" cols="50" rows="10"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center" height="30">
 			    <input type="button"
-				 value="¸Ş  ÀÎ" onClick="location.href='../index.html'">&nbsp;
-				<input type="button" value="ÀÛ  ¼º" onClick="check()">&nbsp;
-				<input type="button" value="¸ñ  ·Ï"
+				 value="ë©”  ì¸" onClick="location.href='../index.jsp'">&nbsp;
+				<input type="button" value="ì‘  ì„±" onClick="check()">&nbsp;
+				<input type="button" value="ëª©  ë¡"
 				  onClick="location.href='boardlist.jsp'"></td>
 		</tr>
 	</table>
