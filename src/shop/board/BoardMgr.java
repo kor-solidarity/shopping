@@ -3,6 +3,7 @@ package shop.board;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -80,5 +81,37 @@ public class BoardMgr {
 			} catch (Exception e2) {
 			}
 		}
+	}
+	public ArrayList<BoardDto> getDataAll(){
+		ArrayList<BoardDto> list=new ArrayList<>();
+		String sql="select * from board order by gnum desc, onum asc";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			rs=pst.executeQuery();
+			while(rs.next()){
+				BoardDto dto=new BoardDto();
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setName(rs.getString("title"));
+				dto.setName(rs.getString("bdata"));
+				dto.setName(rs.getString("readcnt"));
+				dto.setName(rs.getString("nested"));
+				list.add(dto);
+				
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return list;
 	}
 }

@@ -7,5 +7,13 @@
 
 <%
 int maxNum=BoardMgr.curruntGetNum()+1;
-out.print(maxNum);
+//out.print(maxNum);
+bean.setNum(maxNum);
+bean.setGnum(maxNum);
+bean.setBip(request.getRemoteAddr());
+bean.setBdate();
+BoardMgr.saveData(bean); //새글 저장
+
+response.sendRedirect("boardlist.jsp?page=1");
+
 %>
