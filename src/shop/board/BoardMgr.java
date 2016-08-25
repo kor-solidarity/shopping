@@ -191,4 +191,210 @@ public class BoardMgr {
 		}
 		return list;
 	}
+	public void updateReadcnt(String num){
+		String sql="update board set readcnt=readcnt+1 where num=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, num);
+			pst.executeUpdate();
+	
+			
+		} catch (Exception e) {
+			System.out.println("readcnt err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+	}
+	public BoardDto getData(String num){
+		String sql="select * from board where num=?";
+		BoardDto dto=new BoardDto();
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, num);
+			rs=pst.executeQuery();
+			if(rs.next()){
+
+				dto.setName(rs.getString("name"));
+				dto.setPass(rs.getString("pass"));
+				dto.setMail(rs.getString("mail"));
+				dto.setTitle(rs.getString("title"));
+				dto.setCont(rs.getString("cont"));
+				dto.setBip(rs.getString("bip"));
+				dto.setBdate(rs.getString("bdate"));
+				dto.setReadcnt(rs.getInt("readcnt"));
+				
+			}
+		} catch (Exception e) {
+			System.out.println("get data err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return dto;
+		
+	}
+	public BoardDto getReplyData(String num) {
+		String sql="select * from board where num=?";
+		BoardDto dto=new BoardDto();
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, num);
+			rs=pst.executeQuery();
+			if(rs.next()){
+
+				dto.setTitle(rs.getString("title"));
+				dto.setGnum(rs.getInt("gnum"));
+				dto.setOnum(rs.getInt("onum"));
+				dto.setNested(rs.getInt("nested"));
+				
+			}
+		} catch (Exception e) {
+			System.out.println("get data err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return dto;
+
+	}
+	public void updateOnum(int gnum,int onum) { //댓글용 onum 갱신
+		//같은 그룹의 레코드는 모두 작업에 참여 - 같은 그룹의 onum값 변경
+		//댓글의 onum은 이미 db에 있는 onum보다 크거나 같은 값을 변경
+		String sql="update board set onum=onum+1 where onum>=? and gnum=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setInt(1, onum);
+			pst.setInt(2, gnum);
+			
+			int re=pst.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("get data err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		
+
+	}
+	public void saveReply(BoardBean bean) { //댓글용 저장
+		String sql="insert into board values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setInt(1,bean.getNum());
+			pst.setString(2, bean.getName());
+			pst.setString(3, bean.getPass());
+			pst.setString(4, bean.getMail());
+			pst.setString(5, bean.getTitle());
+			pst.setString(6, bean.getCont());
+			pst.setString(7, bean.getBip());
+			pst.setString(8, bean.getBdate());
+			pst.setInt(9,0); //readcnt
+			pst.setInt(10,bean.getGnum());
+			pst.setInt(11,bean.getOnum()); //onum
+			pst.setInt(12,bean.getNested()); //nested
+			pst.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+	}
+	public boolean checkPass(int num,String new_pass) {
+		boolean b=false;
+		String sql="select pass from board where num=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setInt(1,num);
+			rs=pst.executeQuery();
+			if(rs.next()){
+				if(new_pass.equals(rs.getString("pass")))b=true;
+			}
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		
+		return b;
+
+	}
+	public void saveEdit(BoardBean bean) {
+		String sql="update board set name=?,mail=?,title=?,cont=? where num=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1,bean.getName());
+			pst.setString(2,bean.getMail());
+			pst.setString(3,bean.getTitle());
+			pst.setString(4,bean.getCont());
+			pst.setInt(5,bean.getNum());
+			pst.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+				
+			}
+		}
+
+	}
+	public void delData(String num){
+		String sql="delete from board where num=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, num);
+			pst.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("save err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
 }
