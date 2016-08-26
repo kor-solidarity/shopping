@@ -12,5 +12,7 @@ function idCheck(){
 	}
 }
 function inputCheck(){
-	
+	//입력자료 오류 검사
+
+	document.regForm.submit();
 }

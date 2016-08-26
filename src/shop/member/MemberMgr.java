@@ -84,7 +84,7 @@ public class MemberMgr {
 	//회원추가
 	public boolean memberInsert(MemberBean bean){
 		boolean b=false;
-		String sql="insert into member values(?,?,?,?,?,?,?,?,?)";
+		String sql="insert into member values(?,?,?,?,?,?,?,?)";
 		try {
 			con=ds.getConnection();
 			pst=con.prepareStatement(sql);
