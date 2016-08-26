@@ -110,4 +110,29 @@ public class MemberMgr {
 		}
 		return b;
 	}
+	
+	public boolean loginCheck(String id,String passwd){
+		boolean b=false;
+		String sql="select id,passwd from member where id=? and passwd=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, id);
+			pst.setString(2, passwd);
+			rs=pst.executeQuery();
+			b=rs.next();
+			
+			
+		} catch (Exception e) {
+			System.out.println("logincheck err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return b;
+	}
 }
