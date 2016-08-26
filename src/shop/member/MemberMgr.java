@@ -70,7 +70,7 @@ public class MemberMgr {
 			b=rs.next();
 			
 		} catch (Exception e) {
-			System.out.println("zipcodeRead err"+e);
+			System.out.println("checkid err"+e);
 		}finally{
 			try {
 				if(rs!=null)rs.close();
@@ -81,5 +81,33 @@ public class MemberMgr {
 		}
 		return b;
 	}
-
+	//회원추가
+	public boolean memberInsert(MemberBean bean){
+		boolean b=false;
+		String sql="insert into member values(?,?,?,?,?,?,?,?,?)";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, bean.getId());
+			pst.setString(2, bean.getPasswd());
+			pst.setString(3, bean.getName());
+			pst.setString(4, bean.getEmail());
+			pst.setString(5, bean.getPhone());
+			pst.setString(6, bean.getZipcode());
+			pst.setString(7, bean.getAddress());
+			pst.setString(8, bean.getJob());
+			if(pst.executeUpdate()>0)b=true;
+			
+		} catch (Exception e) {
+			System.out.println("memberInsert err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return b;
+	}
 }
