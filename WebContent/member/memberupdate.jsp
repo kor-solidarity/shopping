@@ -23,7 +23,7 @@ if(bean==null){
 <script src="../js/script.js"></script>
 <script type="text/javascript">
 window.onload = function(){
-	regForm.id.focus();
+
 	document.getElementById("btnZip").onclick = zipCheck;
 	document.getElementById("btnUpdate").onclick = memberUpdate;
 	document.getElementById("btnUpdateCancel").onclick = memberUpdateCancel;
