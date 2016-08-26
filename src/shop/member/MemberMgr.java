@@ -61,6 +61,24 @@ public class MemberMgr {
 	}
 	public boolean checkId(String id){
 		boolean b=false;
+		String sql="select * from member where id= ?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, id);
+			rs=pst.executeQuery();
+			b=rs.next();
+			
+		} catch (Exception e) {
+			System.out.println("zipcodeRead err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
 		return b;
 	}
 
