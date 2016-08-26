@@ -135,4 +135,38 @@ public class MemberMgr {
 		}
 		return b;
 	}
+	public MemberBean getMember(String id){
+		MemberBean bean=null;
+		String sql="select * from member where id=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, id);
+			rs=pst.executeQuery();
+			if(rs.next()){
+				bean=new MemberBean();
+				bean.setId(rs.getString("id"));
+				bean.setPasswd(rs.getString("passwd"));
+				bean.setName(rs.getString("name"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPhone(rs.getString("phone"));
+				bean.setZipcode(rs.getString("zipcode"));
+				bean.setAddress(rs.getString("address"));
+				bean.setJob(rs.getString("job"));
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("getmember err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return bean;
+	}
+	
 }

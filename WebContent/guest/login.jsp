@@ -11,6 +11,7 @@
 window.onload=function(){
 	document.getElementById("btnLogin").addEventListener("click", funcLogin, false);
 	document.getElementById("btnNewMember").addEventListener("click", funcNew, false);
+	document.getElementById("btnHome").addEventListener("click", funcHome, false);
 }
 function funcLogin(){
 	if(loginFrm.id.value===""){
@@ -26,7 +27,10 @@ function funcLogin(){
 	}
 }
 function funcNew(){
-	location.href="register.jsp";
+	location.href="../member/register.jsp";
+}
+function funcHome(){
+	location.href="guest_index.jsp";
 }
 </script>
 </head>
@@ -39,6 +43,7 @@ if(id!=null){
 	<input type="button" value="회원가입" id="btnNewMember" style="display:none;">
 	<b><%=id %>님 환영합니다.</b>
 	준비된 기능을 사용할 수 있습니다.
+	<a href="guest_index.jsp">메인으로</a>
 	<a href="logout.jsp">로그아웃</a>
 <%}else{%>
 <form name="loginFrm">
@@ -56,6 +61,7 @@ if(id!=null){
 		<td colspan="2">
 		<input type="button" value="로그인" id="btnLogin">
 		<input type="button" value="회원가입" id="btnNewMember">
+		<input type="button" value="홈으로" id="btnHome">
 		</td>
 	</tr>
 </table>

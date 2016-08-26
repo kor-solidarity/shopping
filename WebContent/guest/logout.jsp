@@ -5,5 +5,5 @@ session.removeAttribute("idKey");
 %>
 <script>
 alert("로그아웃 성공");
-location.href="login.jsp";
+location.href="guest_index.jsp";
 </script>
