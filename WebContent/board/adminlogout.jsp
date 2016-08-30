@@ -7,10 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-home<p/>
-<a href="board/boardlist.jsp">게시판</a>
-
-<a href="member/register.jsp">회원가입</a>
-<a href="guest/guest_index.jsp">게스트</a>
+<% session.removeAttribute("adminOk"); %>
+로그아웃 성공<br><br>
+<br><br>
+[<a href="javascript:window.close()">창닫기</a>]
 </body>
 </html>
