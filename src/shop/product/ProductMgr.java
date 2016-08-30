@@ -14,6 +14,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import shop.member.ZiptabBean;
+import shop.order.OrderBean;
 
 public class ProductMgr {
 	private Connection con;
@@ -198,5 +199,27 @@ public class ProductMgr {
 		}
 		
 		return b;
+	}
+	//고객이 상품 주문시 주문 수 만큼 재고에서 빼기자료
+	public void reduceProduct(OrderBean order){
+		try {
+			con=ds.getConnection();
+			String sql="update shop_product set stock=(stock-?) where no=?";
+			pst=con.prepareStatement(sql);
+			pst.setString(1, order.getQuantity());
+			pst.setString(2, order.getProduct_no());
+			pst.executeUpdate();
+		
+			
+		} catch (Exception e) {
+			System.out.println("updateproduct err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
 	}
 }
