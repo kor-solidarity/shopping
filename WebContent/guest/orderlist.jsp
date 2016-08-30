@@ -35,7 +35,13 @@ if(list.size()==0){
 		<td><%=product.getName()%></td>
 		<td><%=ord.getQuantity() %></td>
 		<td><%=ord.getSdate() %></td>
-		<td>.</td>
+		<td>
+		<%
+		switch(ord.getState()){
+		case "1":out.println("접수"); break; 
+		}
+		%>
+		</td>
 	</tr>
 	<%
 	}
