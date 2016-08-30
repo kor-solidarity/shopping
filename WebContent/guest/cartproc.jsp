@@ -14,8 +14,10 @@ if(id==null){
 		order.setId(id);
 		cartmgr.addCart(order); //cart에 주문 상품 담기
 		%>
+		<script>
 		alert("장바구니에 담았습니다");
 		location.href="cartlist.jsp";
+		</script>
 		<% 
 	}else if(flag.equals("update")){
 		

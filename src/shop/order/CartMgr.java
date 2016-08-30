@@ -16,6 +16,7 @@ public class CartMgr {
 				quantity+=Integer.parseInt(temp.getQuantity());
 				temp.setQuantity(Integer.toString(quantity));
 				hCart.put(product_no,temp);
+				System.out.println(quantity);
 			}else{ //새 상품 주문시 
 				hCart.put(product_no, obean);
 			}
@@ -25,9 +26,11 @@ public class CartMgr {
 		return hCart;
 	}
 	public void updateCart(OrderBean obean){
-		
+		String product_no=obean.getProduct_no();
+		hCart.put(product_no, obean);
 	}
 	public void deleteCart(OrderBean obean){
-		
+		String product_no=obean.getProduct_no();
+		hCart.remove(product_no);
 	}
 }
