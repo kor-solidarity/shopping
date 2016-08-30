@@ -38,7 +38,12 @@ if(list.size()==0){
 		<td>
 		<%
 		switch(ord.getState()){
-		case "1":out.println("접수"); break; 
+		case "1":out.println("접수"); break;
+		case "2":out.println("입금확인"); break;
+		case "3":out.println("배송준비"); break; 
+		case "4":out.println("배송중"); break; 
+		case "5":out.println("처리완료"); break; 
+		case "6":out.println("접수중"); break; 
 		}
 		%>
 		</td>
