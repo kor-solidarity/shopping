@@ -138,5 +138,50 @@ public class OrderMgr {
 		}
 		return bean;
 	}
+	public boolean updateOrder(String no,String state){
+		boolean b=false;
+		try {
+			con=ds.getConnection();
+			String sql="update shop_order set state=? where no=?";
+			pst=con.prepareStatement(sql);
+			pst.setString(1,state);
+			pst.setString(2,no);
+			if(pst.executeUpdate()>0)b=true;
+		
+		
+		} catch (Exception e) {
+			System.out.println("getorderAll err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return b;
+	}
 	
+	public boolean deleteOrder(String no){
+		boolean b=false;
+		try {
+			con=ds.getConnection();
+			String sql="delete from shop_order where no=?";
+			pst=con.prepareStatement(sql);
+			pst.setString(1,no);
+			if(pst.executeUpdate()>0)b=true;
+			//상품의 재고수량을 원상복귀 작업 생략
+		
+		} catch (Exception e) {
+			System.out.println("delete_order err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return b;
+	}
 }

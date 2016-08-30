@@ -67,7 +67,16 @@ function cartDelete(form){
 	form.flag.value="delete";
 	form.submit();
 }
-function orderDetail(no){
+function orderDetail(no){	//관리자에서 주문처리시
 	document.detailFrm.no.value=no;
+	document.detailFrm.submit();
+}
+function orderUpdate(form){
+	document.detailFrm.flag.value="update";
+	document.detailFrm.submit();
+}
+
+function orderDelete(form){
+	document.detailFrm.flag.value="delete";
 	document.detailFrm.submit();
 }
