@@ -20,9 +20,22 @@ if(id==null){
 		</script>
 		<% 
 	}else if(flag.equals("update")){
-		
+		order.setId(id);
+		cartmgr.updateCart(order);
+		%>
+		<script>
+		alert("장바구니의 내용을 수정했습니다");
+		location.href="cartlist.jsp";
+		</script>
+		<% 
 	}else if(flag.equals("delete")){
-		
+		cartmgr.deleteCart(order);
+		%>
+		<script>
+		alert("해당상품의 주문을 삭제했습니다");
+		location.href="cartlist.jsp";
+		</script>
+		<% 
 	}
 }
 

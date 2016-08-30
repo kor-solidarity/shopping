@@ -16,7 +16,7 @@ public class CartMgr {
 				quantity+=Integer.parseInt(temp.getQuantity());
 				temp.setQuantity(Integer.toString(quantity));
 				hCart.put(product_no,temp);
-				System.out.println(quantity);
+				System.out.println(hCart.size());
 			}else{ //새 상품 주문시 
 				hCart.put(product_no, obean);
 			}

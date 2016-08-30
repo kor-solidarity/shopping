@@ -58,3 +58,12 @@ function productDelete(no){
 	}
 	
 }
+//카트 처리용
+function cartUpdate(form){
+	form.flag.value="update";
+	form.submit();
+}
+function cartDelete(form){
+	form.flag.value="delete";
+	form.submit();
+}
