@@ -25,6 +25,10 @@ public class OrderMgr {
 		
 	}
 	public void insertOrder(OrderBean orderBean){
-		
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 }

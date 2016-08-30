@@ -4,8 +4,22 @@ import java.util.Hashtable;
 
 public class CartMgr {
 	private Hashtable hCart=new Hashtable<>();
-	public void addCart(OrderBean bean){
-		
+	
+	
+	public void addCart(OrderBean obean){
+		String product_no =obean.getProduct_no();
+		int quantity=Integer.parseInt(obean.getQuantity());
+		if(quantity>0){
+			//동일 상품 주문 여부 확인
+			if(hCart.containsKey(product_no)){
+				OrderBean temp=(OrderBean)hCart.get(product_no);
+				quantity+=Integer.parseInt(temp.getQuantity());
+				temp.setQuantity(Integer.toString(quantity));
+				hCart.put(product_no,temp);
+			}else{ //새 상품 주문시 
+				hCart.put(product_no, obean);
+			}
+		}
 	}
 	public Hashtable getCartList(){
 		return hCart;
