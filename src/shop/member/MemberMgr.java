@@ -168,5 +168,87 @@ public class MemberMgr {
 		}
 		return bean;
 	}
+	public boolean memberUpdate(MemberBean bean, String id){
+		boolean b=false;
+		String sql="update member set passwd=?,name=?,email=?,phone=?,zipcode=?,address=?,job=? where id=?";
+		try {
+			con=ds.getConnection();
+			pst=con.prepareStatement(sql);
+			pst.setString(1, bean.getPasswd());
+			pst.setString(2, bean.getName());
+			pst.setString(3, bean.getEmail());
+			pst.setString(4, bean.getPhone());
+			pst.setString(5, bean.getZipcode());
+			pst.setString(6, bean.getAddress());
+			pst.setString(7, bean.getJob());
+			pst.setString(8, id);
+			if(pst.executeUpdate()>0)b=true;
+			
+		} catch (Exception e) {
+			System.out.println("getmember err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return b;
+	}
+	//관리자 로그인용
+	public boolean adminloginCheck(String adminid, String adminpasswd){
+		boolean b=false;
+		try {
+			con=ds.getConnection();
+			String sql="select * from admin where admin_id=? and admin_passwd=?";
+			pst=con.prepareStatement(sql);
+			pst.setString(1, adminid);
+			pst.setString(2, adminpasswd);
+			rs=pst.executeQuery();
+			b=rs.next();
+		} catch (Exception e) {
+			System.out.println("adminloginCheck err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return b;
+	}
+	
+	//관리자 모드에서 전체회원 읽기
+	public ArrayList<MemberBean> getMemberAll(){
+		ArrayList<MemberBean> list=new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			String sql="select * from member order by id asc";
+			pst=con.prepareStatement(sql);
+			rs=pst.executeQuery();
+			while(rs.next()){
+				MemberBean bean=new MemberBean();
+				bean.setId(rs.getString("id"));
+				bean.setPasswd(rs.getString("passwd"));
+				bean.setName(rs.getString("name"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPhone(rs.getString("phone"));
+				list.add(bean);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("adminloginCheck err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return list;
+	}
 	
 }
