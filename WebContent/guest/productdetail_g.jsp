@@ -1,5 +1,11 @@
+<%@page import="shop.product.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <jsp:useBean id="productMgr" class="shop.product.ProductMgr"></jsp:useBean>
+<%
+String no=request.getParameter("no");
+ProductBean bean=productMgr.getProduct(no);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +17,7 @@
 <body>
 **상품 상세 보기 **<br>
 <%@ include file="guest_top.jsp" %>
+<form action="cartproc.jsp">
 <table style="width:80%">
 	<tr>
 	<td style="width:20%"><img src="../data/<%=bean.getImage()%>" width="150"></td>
@@ -23,7 +30,9 @@
 		<tr><td>재고량:</td><td><%=bean.getStock()%></td></tr>
 		<tr>
 			<td>주문 수:</td>
-			<td></td>
+			<td>
+				<input type="text" name="quantity" value="1" size="5" style="text-align:center;">
+			</td>
 		</tr>		
 		
 		</table>
@@ -35,19 +44,14 @@
 	</tr>
 	<tr>
 		<td colspan="3" style="text-align:center;">
-			<a href="javascript:productUpdate('<%=bean.getNo()%>')">수정하기</a>
-			<a href="javascript:productDelete('<%=bean.getNo()%>')">삭제하기</a>	
+			<input type="hidden" name="product_no" value="<%=bean.getNo() %>">
+			<input type="submit" value="장바구니에 담기">
+			<input type="button" value="이전으로 이동" onclick="history.back()">
 		</td>	
 	</tr>
 </table>
+</form>
 <%@ include file="guest_bottom.jsp" %>
 
-<form action="productupdate.jsp" name="updateFrm" method="post">
-<input type="hidden" name="no">
-</form>
-
-<form action="productproc.jsp?flag=delete" name="deleteFrm" method="post">
-<input type="hidden" name="no">
-</form>
 </body>
 </html>
