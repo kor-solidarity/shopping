@@ -43,7 +43,7 @@ if(list.size()==0){
 		case "3":out.println("배송준비"); break; 
 		case "4":out.println("배송중"); break; 
 		case "5":out.println("처리완료"); break; 
-		case "6":out.println("접수중"); break; 
+		default:out.println("접수중"); break; 
 		}
 		%>
 		</td>

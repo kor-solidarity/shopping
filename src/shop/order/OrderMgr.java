@@ -79,4 +79,64 @@ public class OrderMgr {
 		}
 		return list;
 	}
+	public ArrayList<OrderBean> getOrderAll(){
+		ArrayList<OrderBean> list=new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			String sql="select * from shop_order order by no desc";
+			pst=con.prepareStatement(sql);
+			rs=pst.executeQuery();
+			while(rs.next()){
+				OrderBean bean=new OrderBean();
+				bean.setNo(rs.getString("no"));
+				bean.setProduct_no(rs.getString("product_no"));
+				bean.setQuantity(rs.getString("quantity"));
+				bean.setSdate(rs.getString("sdate"));
+				bean.setState(rs.getString("state"));
+				bean.setId(rs.getString("id"));
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			System.out.println("getorderAll err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return list;
+	}
+	public OrderBean getOrderDetail(String no){
+		OrderBean bean=null;
+		try {
+			con=ds.getConnection();
+			String sql="select * from shop_order where no=?";
+			pst=con.prepareStatement(sql);
+			pst.setString(1,no);
+			rs=pst.executeQuery();
+			if(rs.next()){
+				bean=new OrderBean();
+				bean.setNo(rs.getString("no"));
+				bean.setProduct_no(rs.getString("product_no"));
+				bean.setQuantity(rs.getString("quantity"));
+				bean.setSdate(rs.getString("sdate"));
+				bean.setState(rs.getString("state"));
+				bean.setId(rs.getString("id"));
+				
+			}
+		} catch (Exception e) {
+			System.out.println("getorderAll err"+e);
+		}finally{
+			try {
+				if(rs!=null)rs.close();
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+			} catch (Exception e2) {
+			}
+		}
+		return bean;
+	}
+	
 }
