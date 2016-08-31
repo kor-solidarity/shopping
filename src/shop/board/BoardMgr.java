@@ -353,6 +353,7 @@ public class BoardMgr {
 		return b;
 
 	}
+	
 	public void saveEdit(BoardBean bean) {
 		String sql="update board set name=?,mail=?,title=?,cont=? where num=?";
 		try {
